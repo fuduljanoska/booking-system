@@ -1,0 +1,16 @@
+
+.validControl{
+    border-color: black;
+  }
+  
+  .invalidControl{
+    border-color: red
+  }
+  
+  .enabledButton{
+    background-color: #4CAF50
+  }
+  
+  .disabledButton{
+    background-color: #9aa09a
+  }
