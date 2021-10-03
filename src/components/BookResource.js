@@ -20,8 +20,6 @@ const BookResource = ({onBook, isShown}) => {
         {
             return;
         }
-        // API validate requested quantity for requested period
-        
         onBook(dateFrom, dateTo, quantity)
     }
 

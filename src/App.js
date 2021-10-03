@@ -40,8 +40,8 @@ const App = () => {
   }
 
   const fetchResources = async () => {
-    const res = await fetch('https://localhost:5001/Resources/getAll')
-    const data = await res.json()
+    const response = await fetch('https://localhost:5001/Resources/getAll')
+    const data = await response.json()
     return data
   }
 
@@ -52,9 +52,8 @@ const App = () => {
               'Content-type' : 'application/json'
             },
             body: JSON.stringify({dateFrom, dateTo, bookedQuantity : parseInt(quantity), resourceId : selectedId})
-
     })
-
+    
     const data = await res.json()
     return data
   } 
@@ -69,8 +68,11 @@ const App = () => {
 
   useEffect(() => {
     const getResources = async () => {
-        const resourcesFromServer = await fetchResources()
-        setResources(resourcesFromServer)
+        await fetchResources()
+          .then((resourcesFromServer) => setResources(resourcesFromServer))
+          .catch(e => {
+            alert('Problem when loading the resources: ' + e.message);
+          })
     }
     getResources()
   }, [])
@@ -80,7 +82,7 @@ const App = () => {
     <div className="container">
       <h1>{title}</h1>
       <Resources resources={resources} onBookHere={openResourceBookingModal}/>
-      <Modal  show={showResourceBookingModal} cancel={cancelBooking} 
+      <Modal show={showResourceBookingModal} cancel={cancelBooking} 
               children={<BookResource onBook={makeReservation} isShown={showResourceBookingModal}></BookResource>} 
               title={bookingTitle} />
     </div>
